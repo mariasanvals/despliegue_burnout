@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicción de Supervivencia en el Titanic</title>
+</head>
+<body>
+    <h1>Predicción de Supervivencia en el Titanic</h1>
+    
+    <form method="post" action="{{ url_for('predict') }}">
+        <label for="sex">Sexo:</label>
+        <select name="sex" id="sex">
+            <option value="male">Hombre</option>
+            <option value="female">Mujer</option>
+        </select><br><br>
+
+        <label for="embarked">Puerto de embarque:</label>
+        <select name="embarked" id="embarked">
+            <option value="C">Cherburgo</option>
+            <option value="Q">Queenstown</option>
+            <option value="S">Southampton</option>
+        </select><br><br>
+
+        <label for="pclass">Clase del pasaje:</label>
+        <select name="pclass" id="pclass">
+            <option value="1">Primera Clase</option>
+            <option value="2">Segunda Clase</option>
+            <option value="3">Tercera Clase</option>
+        </select><br><br>
+
+        <label for="age">Edad:</label>
+        <input type="number" step="any" name="age" id="age"><br><br>
+
+        <input type="submit" value="Predecir">
+    </form>
+
+    {% if probabilidad is not none %}
+    <h2>Probabilidad de Supervivencia: {{ probabilidad }}</h2>
+    {% endif %}
+    
+    <h1> Si deseas reentrenar el Modelo pulsa el botón</h1>
+
+    <form method="post" action="{{ url_for('retrain') }}">
+        <input type="submit" value="Reentrenar Modelo">
+    </form>
+
+    {% if retrain_message is not none %}
+    <h2>{{ retrain_message }}</h2>
+    {% endif %}
+    
+</body>
+</html>
